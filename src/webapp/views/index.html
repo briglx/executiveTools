@@ -1,0 +1,117 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+<div ng-controller="RecommendCtrl" class="row">
+
+    <div class="page-header">
+        <h1>Recommend Status</h1>
+    </div>
+    <div class="col-lg-3">
+
+        <ul   class="list-group">
+            <li ng-repeat="r in recommends()" ng-click="selectActive(r)" class="list-group-item [[highlightType(r)]] [[r.active]]">
+                <span class="glyphicon glyphicon-[[iconType(r)]]"></span>
+                <span class="badge">[[r.status]]</span>[[r.name]]</li>
+
+        </ul>
+    </div>
+    <div class="col-lg-6">
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="inputEmail1" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" id="inputEmail1" placeholder="Email" value="[[curRecommend.email]]">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmailText" class="col-lg-2 control-label">Email Text</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" id="inputEmailText" rows="12">
+Hi [[curRecommend.title]] [[curRecommend.lastname]],
+
+It looks like your temple recommend [[curRecommend.message]]. Interview times are available this Sunday between 1-3PM.
+
+Please let me know which of these times work out best.
+
+Thanks,
+Brig Lamoreaux
+480-275-7747
+Executive Secretary
+Ocotillo Ward
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2">
+
+                    </div>
+                <div class="col-lg-10"><input ng-click="addActivity()" type="button" class=" btn btn-info" value="Send"></div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+        <label class="control-label">Activity</label>
+        <ul   class="list-group">
+            <li ng-repeat="l in activities" class="list-group-item">[[getRelative(l.activityDate)]]</li>
+
+        </ul>
+
+
+    </div>
+</div>
+
+<div style="display:none">
+    <div>
+        <h1>Show Emails</h1>
+    </div>
+
+    <div class="panel-group" id="accordion">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Collapsible Group Item #1
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Eden Lamoreaux
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Hi, My name is Eden.
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="badge">Expiring</span>
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                        Sis. Huber
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>LDS Tools</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div ng-controller="MenuCtrl"  class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="/">LDS Tools</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="template">Template</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+
+            <ul ng-show="user.permissions.loggedIn" class="nav navbar-nav navbar-right">
+                <li><a  href="#">Hi [[ user.individualId ]]</a></li>
+                <li><a ng-click="refresh()" href="#">Refresh</a></li>
+            </ul>
+
+            <form ng-hide="user.permissions.loggedIn" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="Username" class="form-control" ng-model="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" ng-model="password">
+                </div>
+                <button ng-click="login()" type="button" class="btn btn-success">Sign in</button>
+            </form>
+        </div><!--/.nav-collapse -->
+
+
+    </div>
+</div>
+
+<div class="container">
+    {% block body %}{% endblock %}
+
+</div><!-- /.container -->
+
+<script src="javascripts/jquery-1.9.1.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/angular.min.js"></script>
+<script src="javascripts/controllers.js"></script>
+<script type="text/javascript">
+
+    (function(executiveTools, undefined){
+        executiveTools.user = {
+            individualId: "{{user.individualId}}",
+            homeUnitNbr: "{{ user.homeUnitNbr }}",
+            permissions: {
+                loggedIn: {{user.permissions.loggedIn}}
+            }
+        };
+    }(window.executiveTools = window.executiveTools || {}));
+
+</script>
+
+</body>
+</html>

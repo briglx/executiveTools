@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+
+    <div>
+        <h1>Edit Template</h1>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email template</label>
+            <textarea class="form-control" rows="12" >
+Hi {{title}} {{lastname}},
+
+It looks like your temple recommend {{status}}. Interview times are available this Sunday between 1-3PM.
+
+Please let me know which of these times work out best.
+
+Thanks,
+Brig Lamoreaux
+480-275-7747
+Executive Secretary
+Ocotillo Ward
+            </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{% endblock %}
