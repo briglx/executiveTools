@@ -54,11 +54,17 @@ exports.refresh = function (req, res) {
                             case "EXPIRED_OVER_3_MONTHS":
                                 return "is three or more months expired";
                                 break;
+                            case "EXPIRED_LESS_THAN_3_MONTHS":
+                                return "has expired";
+                                break;
                             case "EXPIRED_LESS_THAN_1_MONTH":
                                 return "has expired";
                                 break;
                             case "EXPIRING_THIS_MONTH":
                                 return "will expire this month";
+                                break;
+                            case "EXPIRING_NEXT_MONTH":
+                                return "will expire next month";
                                 break;
                             case "ACTIVE":
                                 break;

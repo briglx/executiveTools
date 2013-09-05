@@ -120,10 +120,16 @@ function RecommendCtrl($scope, $http, toolsService) {
             case "EXPIRED_OVER_3_MONTHS":
                 return "alert-danger";
                 break;
+            case "EXPIRED_LESS_THAN_3_MONTHS":
+                return "alert-danger";
+                break;
             case "EXPIRED_LESS_THAN_1_MONTH":
                 return "alert-danger";
                 break;
             case "EXPIRING_THIS_MONTH":
+                return "";
+                break;
+            case "EXPIRING_NEXT_MONTH":
                 return "";
                 break;
             case "ACTIVE":
@@ -139,10 +145,16 @@ function RecommendCtrl($scope, $http, toolsService) {
             case "EXPIRED_OVER_3_MONTHS":
                 return "exclamation-sign";
                 break;
+            case "EXPIRED_LESS_THAN_3_MONTHS":
+                return "exclamation-sign";
+                break;
             case "EXPIRED_LESS_THAN_1_MONTH":
                 return "exclamation-sign";
                 break;
             case "EXPIRING_THIS_MONTH":
+                return "exclamation-sign";
+                break;
+            case "EXPIRING_NEXT_MONTH":
                 return "exclamation-sign";
                 break;
             case "ACTIVE":
