@@ -1,61 +1,56 @@
 var http = require('http')
-    , common = require('../../lib/common.js');
-
+    , common = require('../../lib/common.js')
+    , nconf = require('nconf');
 
 /*
  * GET home page.
  */
 
-exports.index = function(req, res){
+exports.index = function (req, res) {
 
-    res.render('index', { title: 'Express' , user: req.session.user});
+    res.render('index', { title: 'Express', user: req.session.user});
 };
 
-exports.template = function(req, res){
+exports.template = function (req, res) {
     res.render('template', { title: 'Express', user: req.session.user});
 };
 
-
-
-exports.refresh = function(req, res){
+exports.refresh = function (req, res) {
 
     // Get Unit No
     var user = req.session.user;
-
 
     console.log("Get Recommend Status");
 
     if (user.permissions.loggedIn) {
 
-        //var url='https://www.lds.org/mls/mbr/services/recommend/endowed-members?unitNumber=' + user.homeUnitNbr + '&lang=eng';
-        var url='http://localhost:3000/mock/recommends';
+        var url = nconf.get('ldstools:recommendStatus') + '?unitNumber=' + user.homeUnitNbr + '&lang=eng'
 
         var recommends = [];
-        common.makeCall(url, function(body){
-
+        common.makeCall(url, function (body) {
 
             var recommend = {};
-            for(var i = 0; i < body.length; i++) {
+            for (var i = 0; i < body.length; i++) {
                 recommend = {
                     individualId: body[i].id,
                     name: body[i].name,
                     email: body[i].email,
                     status: body[i].status,
                     recommendStatus: body[i].recommendStatus,
-                    title: (function(){
-                        if(body[i].gender == "MALE"){
+                    title: (function () {
+                        if (body[i].gender == "MALE") {
                             return "Bro.";
                         }
-                        else{
+                        else {
                             return "Sis.";
                         }
                     }()),
-                    lastname: (function(){
-                        n=body[i].name.split(",");
+                    lastname: (function () {
+                        n = body[i].name.split(",");
                         return n[0];
                     }()),
-                    message: (function(){
-                        switch(body[i].recommendStatus){
+                    message: (function () {
+                        switch (body[i].recommendStatus) {
                             case "EXPIRED_OVER_3_MONTHS":
                                 return "is three or more months expired";
                                 break;
@@ -74,12 +69,9 @@ exports.refresh = function(req, res){
 
                 recommends.push(recommend);
 
-
-
             }
 
             res.json(recommends);
-
 
         });
 
@@ -90,9 +82,6 @@ exports.refresh = function(req, res){
         res.json({message: "please log in"});
 
     }
-
-
-
 };
 
 

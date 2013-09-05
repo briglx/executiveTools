@@ -1,5 +1,6 @@
 var http = require('http')
-    , common = require('../../lib/common.js');
+    , common = require('../../lib/common.js')
+    , nconf = require('nconf');
 
 exports.login = function(req, res) {
     console.log('In login');
@@ -21,15 +22,6 @@ exports.login = function(req, res) {
             res.json({"individualId": user.individualId});
         });
 
-//        getUnitNo(function(unitNo){
-//            console.log(unitNo);
-//            //res.json({"message":unitNo});
-//
-//        });
-
-        // Success
-
-
     }, function(){
 
         res.status(503);
@@ -37,22 +29,6 @@ exports.login = function(req, res) {
 
     });
 
-//    request.post({url:url, form:form, jar:jar},function (error, response, body) {
-//        if (!error && response.statusCode == 200) {
-//            console.log(response.headers);
-//            console.log(body) // Print the google web page.
-//            loggedOn = true;
-//
-//            res.json({"message":"ok"});
-//        }
-//        else
-//        {
-//
-//
-//            res.status(503);
-//            res.json({"message":error});
-//        }
-//    });
 };
 
 
@@ -60,8 +36,7 @@ exports.login = function(req, res) {
 function ldsLogin(form, next, err){
     console.log("login");
 
-    //var url='https://signin.lds.org/login.html';
-    var url='http://localhost:3000/mock/login';
+    var url=nconf.get('ldstools:loginUrl');
 
     common.request.post({url:url, form:form, jar:common.jar},function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -73,7 +48,9 @@ function ldsLogin(form, next, err){
         }
         else
         {
-            err();
+            console.log('LdsLogin failed: ' + error);
+
+            err(error);
         }
     });
 }
@@ -83,8 +60,7 @@ function getUserDetails(next){
 
     // Get Unit Number
     console.log("Get Current User Detail");
-    //url='https://www.lds.org/mobiledirectory/services/v2/ldstools/current-user-detail';
-    url='http://localhost:3000/mock/userDetails';
+    url=nconf.get('ldstools:currentUserUrl');
 
     common.makeCall(url, function(body){
         console.log(body);
@@ -99,8 +75,7 @@ function getUnitNo(next){
 
     // Get Unit Number
     console.log("Get Unit Number");
-    //url='https://www.lds.org/mobiledirectory/services/ludrs/1.1/mem/mobile/current-user-unitNo';
-    url='http://localhost:3000/mock/userUnit';
+    url=nconf.get('ldstools:unitNo');
     common.makeCall(url, function(body){
         console.log(body.message);
         unitNo=body.message;

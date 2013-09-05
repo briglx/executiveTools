@@ -1,0 +1,8 @@
+{
+    "ldstools":{
+        "loginUrl":"https://signin.lds.org/login.html",
+        "currentUserUrl":"https://www.lds.org/mobiledirectory/services/v2/ldstools/current-user-detail",
+        "recommendStatus":"https://www.lds.org/mls/mbr/services/recommend/endowed-members",
+        "unitNo":"https://www.lds.org/mobiledirectory/services/ludrs/1.1/mem/mobile/current-user-unitNo"
+    }
+}

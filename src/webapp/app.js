@@ -8,6 +8,12 @@ var routes = require('./routes');
 var swig = require('swig');
 var http = require('http');
 var path = require('path');
+var nconf = require('nconf');
+
+
+nconf.argv().env().file({
+    file : 'config.json'
+});
 
 var app = express();
 
@@ -54,8 +60,6 @@ app.get('/mock/recommends', mocks.mockRecommends);
 app.post('/mock/login', mocks.mockLogin);
 app.get('/mock/userDetails', mocks.mockUserDetails);
 app.get('/mock/userUnit', mocks.mockCurrentUserUnitNo);
-
-
 
 /* Middleware */
 function requiresLogin(req, res, next) {
